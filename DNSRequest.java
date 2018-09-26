@@ -1,7 +1,7 @@
 package dnsClient;
 import java.nio.ByteBuffer;
 import java.util.Random;
-import dnsClient.QueryType;
+//import dnsClient.QueryType;
 public class DNSRequest {
 	
 	private String domain;

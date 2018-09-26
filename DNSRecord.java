@@ -13,27 +13,31 @@ public class DNSRecord {
 	
 	public void outputRecord(){
 		String authS;
-		switch(this.queryType){
-		case A:
+		
+		if (this.queryType == QueryType.A){
 			 authS = this.auth ? "auth" : "non-auth";
 			System.out.println("IP\t" + this.domain + "\t" + this.TTL + "\t" + authS);
-			break;
-		case NS:
+			
+		}else if(this.queryType == QueryType.NS){
+		
 			  authS = this.auth ? "auth" : "non-auth";
 			System.out.println("NS\t" + this.domain + "\t" + this.TTL + "\t" + authS);
-			break;
-		case MX:
+			
+		}else if(this.queryType == QueryType.MX){
 			 authS = this.auth ? "auth" : "non-auth";
 			System.out.println("MX\t" + this.domain + "\t" + mxPref + "\t" + this.TTL + "\t" + authS);
-			break;
-		case CNAME:
+			
+
+		}else if(this.queryType == QueryType.CNAME){
 			authS = this.auth ? "auth" : "non-auth";
 			System.out.println("CNAME\t" + this.domain + "\t" + this.TTL + "\t" + authS);
-			break;
-		default:
-			break;
+			
+		}else{
+			
 		}
-	}
+		}
+		
+	
 	public String getName(){
 		return name;
 	}
@@ -75,5 +79,11 @@ public class DNSRecord {
 	}
 	public void setAuth(boolean auth){
 		this.auth = auth;
+	}
+	public int getByteLength(){
+		return byteLength;
+	}
+	public void setByteLength(int byteLength){
+		this.byteLength = byteLength;
 	}
 }

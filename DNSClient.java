@@ -2,8 +2,8 @@ package dnsClient;
 import java.net.*;
 import java.io.IOException;
 import java.util.Arrays;
-import dnsClient.QueryType;
-import dnsClient.DNSRequest;
+//import dnsClient.QueryType;
+//import dnsClient.DNSRequest;
 
 
 public class DNSClient {
@@ -30,21 +30,21 @@ public class DNSClient {
 		try{
 			this.parseInput(args);
 		} catch (Exception e){
-			throw new IllegalArgumentException("Incorrect input: Check arguments and try again");
+			throw new IllegalArgumentException("ERROR\tIncorrect input: Check arguments and try again");
 		}
 		if (server == null || name == null){
-			throw new IllegalArgumentException("Incorret input: Server IP and domain name must be provided.");
+			throw new IllegalArgumentException("ERROR\tIncorret input: Server IP and domain name must be provided.");
 		}
 	}
 	public void makeRequest(){
-		System.out.println("DNS Client sending request for" + name);
+		System.out.println("DNS Client sending request for " + name);
 		System.out.println("Server: " + address);
 		System.out.println("Request type: " + queryType);
 		pollRequest(1);
 	}
 	private void pollRequest(int retryNumber){
 		if (retryNumber > maxRetries){
-			System.out.println("ERROR\tMaximum number of retries" + maxRetries+ " exceeded");
+			System.out.println("ERROR\tMaximum number of retries " + maxRetries+ " exceeded");
 			return;
 		}
 	
