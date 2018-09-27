@@ -127,7 +127,7 @@ public class DNSResponse{
         String domain = "";
         int countByte = index;
 
-        rDataEntry domainResult = getDomainFromIndex(countByte);
+        rData domainResult = getDomainFromIndex(countByte);
         countByte += domainResult.getBytes();
         domain = domainResult.getDomain();
         
@@ -153,7 +153,10 @@ public class DNSResponse{
 
         countByte +=2;
         //TTL
-        byte[] TTL = { response[countByte], response[countByte + 1], response[countByte + 2], response[countByte + 3] };
+        byte[] TTL = new byte[4];
+        for (int i=0; i<4;i++){
+        	TTL[i]= response[countByte+i]; 
+        	}
         ByteBuffer wrapped = ByteBuffer.wrap(TTL);
         result.setTTL(wrapped.getInt());
 
@@ -167,16 +170,16 @@ public class DNSResponse{
         countByte +=2;
         switch (result.getQueryType()) {
             case A:
-                result.setDomain(parseTypeA(rdLength, countByte));
+                result.setDomain(parseAType(rdLength, countByte));
                 break;
             case NS:
-                result.setDomain(parseTypeNS(rdLength, countByte));
+                result.setDomain(parseNSType(rdLength, countByte));
                 break;
             case MX:
-                result.setDomain(parseTypeMX(rdLength, countByte, result));
+                result.setDomain(parseMXType(rdLength, countByte, result));
                 break;
             case CNAME:
-                result.setDomain(parseTypeCNAME(rdLength, countByte));
+                result.setDomain(parseCNAMEType(rdLength, countByte));
                 break;
             case OTHER:
             	break;
@@ -185,7 +188,7 @@ public class DNSResponse{
         return result;
     }
 
-    private String parseTypeA(int rdLength, int countByte) {
+    private String parseAType(int rdLength, int countByte) {
         String address = "";
         byte[] byteAddress= { response[countByte], response[countByte + 1], response[countByte + 2], response[countByte + 3] };
         try {
@@ -198,22 +201,22 @@ public class DNSResponse{
         
     }
 
-    private String parseTypeNS(int rdLength, int countByte) {
-		rDataEntry result = getDomainFromIndex(countByte);
+    private String parseNSType(int rdLength, int countByte) {
+		rData result = getDomainFromIndex(countByte);
 		String nameServer = result.getDomain();
     	
     	return nameServer;
     }
 
-    private String parseTypeMX(int rdLength, int countByte, DNSRecord record) {
+    private String parseMXType(int rdLength, int countByte, DNSRecord record) {
     	byte[] mxPreference= {this.response[countByte], this.response[countByte + 1]};
     	ByteBuffer buf = ByteBuffer.wrap(mxPreference);
     	record.setMxPref(buf.getShort());
     	return getDomainFromIndex(countByte + 2).getDomain();
     }
 
-    private String parseTypeCNAME(int rdLength, int countByte) {
-		rDataEntry result = getDomainFromIndex(countByte);
+    private String parseCNAMEType(int rdLength, int countByte) {
+		rData result = getDomainFromIndex(countByte);
 		String cname = result.getDomain();
     	
     	return cname;
@@ -239,8 +242,8 @@ public class DNSResponse{
         }
     }
 
-    private rDataEntry getDomainFromIndex(int index){
-    	rDataEntry result = new rDataEntry();
+    private rData getDomainFromIndex(int index){
+    	rData result = new rData();
     	int wordSize = response[index];
     	String domain = "";
     	boolean start = true;
