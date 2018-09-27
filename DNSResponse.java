@@ -32,8 +32,8 @@ public class DNSResponse{
         	offSet += parseAnswer(offSet).getByteLength();
         }
         
-        additionalRecords = new DNSRecord[ARCount];
-        for(int i = 0; i < ARCount; i++){
+        additionalRecords = new DNSRecord[NSCount];
+        for(int i = 0; i < NSCount; i++){
         	additionalRecords[i] = this.parseAnswer(offSet);
         	offSet += additionalRecords[i].getByteLength();
         }

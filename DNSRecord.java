@@ -16,21 +16,21 @@ public class DNSRecord {
 		
 		if (this.queryType == QueryType.A){
 			 authS = this.auth ? "auth" : "non-auth";
-			System.out.println("IP\t" + this.domain + "\t" + this.TTL + "\t" + authS);
+			System.out.println("IP\t" + this.domain +"\t" + this.name + "\t" + this.TTL + "\t" + authS);
 			
 		}else if(this.queryType == QueryType.NS){
 		
 			  authS = this.auth ? "auth" : "non-auth";
-			System.out.println("NS\t" + this.domain + "\t" + this.TTL + "\t" + authS);
+			System.out.println("NS\t" + this.domain +"\t" + this.name + "\t" + this.TTL + "\t" + authS);
 			
 		}else if(this.queryType == QueryType.MX){
 			 authS = this.auth ? "auth" : "non-auth";
-			System.out.println("MX\t" + this.domain + "\t" + mxPref + "\t" + this.TTL + "\t" + authS);
+			System.out.println("MX\t" + this.domain + "\t" + this.name + "\t" + mxPref + "\t" + this.TTL + "\t" + authS);
 			
 
 		}else if(this.queryType == QueryType.CNAME){
 			authS = this.auth ? "auth" : "non-auth";
-			System.out.println("CNAME\t" + this.domain + "\t" + this.TTL + "\t" + authS);
+			System.out.println("CNAME\t" + this.domain +"\t" + this.name + "\t" + this.TTL + "\t" + authS);
 			
 		}else{
 			

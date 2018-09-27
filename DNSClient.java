@@ -2,8 +2,7 @@ package dnsClient;
 import java.net.*;
 import java.io.IOException;
 import java.util.Arrays;
-//import dnsClient.QueryType;
-//import dnsClient.DNSRequest;
+
 
 
 public class DNSClient {
